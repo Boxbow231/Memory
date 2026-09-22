@@ -57,11 +57,6 @@ function initGame() {
     startTimer();
 }
 
-if (lockBoard || card.classList.contains("matched") || card === firstCard ||
-    card.firstChild) {
-    return; // Si une des conditions est vraie, on ignore le clic et on s'arrête là
-}
-
 function handleCardClick(card) {
     if (lockBoard || card.classList.contains("matched") || card === firstCard ||
         card.firstChild) {
