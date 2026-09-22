@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="memory.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Memory</h1>
+    </header>
+    <main>
+        <button class="restart-btn" aria-label="Recommencer" type="button">Recommencer</button>
+        <span class="timer" aria-label="Minuteur">00:00</span>
+        <span class="score" aria-label="Score">0</span>
+        <div class="game-board" role="grid" aria-label="Plateau de jeu"></div>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+            aria-describedby="modal-description">
+            <div class="modal-content">
+                <h2 id="modal-title">Félicitations !</h2>
+                <p id="modal-description">Vous avez terminé le jeu en <span class="final-time"></span> avec un score de
+                    <span class="final-score"></span>.
+                </p>
+                <button class="close-btn" aria-label="Fermer la fenêtre">Fermer</button>
+            </div>
+        </div>
+        <div class="overlay" aria-hidden="true"></div>
+        <div class="card" role="button" aria-label="Carte" tabindex="0">
+            <div class="card-front"></div>
+            <div class="card-back"></div>
+        </div>
+    </main>
+    <section>Memor-ise bien les cartes</section>
+    <section id="result" aria-live="polite"></section>
+
+</body>
+
+</html>
