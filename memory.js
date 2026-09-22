@@ -3,6 +3,9 @@ const movesDisplay = document.getElementById("moves");
 const timerDisplay = document.getElementById("timer");
 const resultDisplay = document.getElementById("result");
 const restartBtn = document.getElementById("restart-btn");
+const startBtn = document.getElementById("start-btn");
+
+restartBtn.style.display = "none";
 
 let dimension = 150;
 let imgStart = Math.floor(Math.random() * 100) + 1;
@@ -24,7 +27,7 @@ cards = [...images, ...images];
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // On échange les deux places
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
@@ -47,28 +50,28 @@ function initGame() {
         card.classList.add("card");
         card.setAttribute("role", "button");
         card.setAttribute("tabindex", "0");
-        card.dataset.value = imgUrl; // On cache l'URL de l'image dans la carte
+        card.dataset.value = imgUrl;
         board.appendChild(card);
 
-        // Quand on clique, on appelle la fonction de gestion du clic
         card.addEventListener("click", () => handleCardClick(card));
     });
-    clearInterval(timerInterval);
+
     startTimer();
 }
 
 function handleCardClick(card) {
-    if (lockBoard || card.classList.contains("matched") || card === firstCard ||
-        card.firstChild) {
+    // Le bloc de condition est bien à sa place, uniquement ici
+    if (lockBoard || card.classList.contains("matched") || card === firstCard || card.firstChild) {
         return;
     }
-    revealCard(card); // Tout est bon, on affiche l'image de la carte
+
+    revealCard(card);
     if (!firstCard) {
-        firstCard = card; // C'est la première carte du tour
+        firstCard = card;
         return;
     }
     secondCard = card;
-    lockBoard = true; // On bloque le plateau le temps de vérifier
+    lockBoard = true;
     moves++;
     movesDisplay.textContent = `Coups : ${moves}`;
     checkMatch();
@@ -90,14 +93,14 @@ function checkMatch() {
         resetTurn();
         checkVictory();
     } else {
-        // On attend 0.8 seconde avant de cacher les images
         setTimeout(() => {
             firstCard.innerHTML = "";
             secondCard.innerHTML = "";
-            resetTurn(); // On débloque le plateau pour le coup suivant
+            resetTurn();
         }, 800);
     }
 }
+
 function resetTurn() {
     firstCard = null;
     secondCard = null;
@@ -107,24 +110,35 @@ function resetTurn() {
 function checkVictory() {
     if (matchedCount === cards.length) {
         stopTimer();
-        resultDisplay.textContent = `Victoire ! Coups : ${moves} | Temps :
-${formatTime(seconds)}`;
+        resultDisplay.textContent = `Victoire ! Coups : ${moves} | Temps : ${formatTime(seconds)}`;
     }
 }
+
 function startTimer() {
+    // On nettoie TOUJOURS l'ancien minuteur avant d'en créer un nouveau pour éviter l'accélération
+    clearInterval(timerInterval);
+
     timerInterval = setInterval(() => {
         seconds++;
         timerDisplay.textContent = `Temps : ${formatTime(seconds)}`;
     }, 1000);
 }
+
 function stopTimer() {
     clearInterval(timerInterval);
 }
+
 function formatTime(sec) {
     const min = String(Math.floor(sec / 60)).padStart(2, "0");
     const s = String(sec % 60).padStart(2, "0");
     return `${min}:${s}`;
 }
-// Liaisons finales
+
+// Liaisons finales des boutons
+startBtn.addEventListener("click", () => {
+    initGame();
+    startBtn.style.display = "none"; // Cache le bouton "Démarrer"
+    restartBtn.style.display = "inline-block"; // Fait apparaître le bouton "Recommencer"
+});
+
 restartBtn.addEventListener("click", initGame);
-initGame();

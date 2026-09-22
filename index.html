@@ -12,20 +12,20 @@
 <body>
     <header>
         <h1>Memory</h1>
+        <p>Mémory-se bien les cartes</p>
     </header>
 
     <main>
         <div>
-            <button id="restart-btn" aria-label="Recommencer" type="button">Recommencer</button>
-            <span id="timer" aria-label="Minuteur">Temps : 00:00</span>
-            <span id="moves" aria-label="Score">Coups : 0</span>
+            <button id="restart-btn" type="button">Recommencer</button>
+            <button id="start-btn" type="button">Démarrer</button>
+            <span id="timer">Temps : 00:00</span>
+            <span id="moves">Coups : 0</span>
         </div>
-        <div id="game-board" role="grid" aria-label="Plateau de jeu"></div>
+        <div id="game-board" role="group" aria-label="Plateau de jeu"></div>
     </main>
 
-    <section>Mémory-se bien les cartes</section>
-
-    <section id="result" aria-live="polite"></section>
+    <div id="result" aria-live="polite"></div>
 
 </body>
 
